@@ -56,3 +56,38 @@ class AccessToken(object):
         if not self._token or self.expired:
             self.request_token()
         return self._token
+
+
+class Translator(object):
+    api_url = "http://api.microsofttranslator.com/V2/Ajax.svc/"
+
+    def __init__(self, client_id, client_secret):
+        self.auth = AccessToken(client_id, client_secret)
+
+    def make_url(self, action, params=None, ):
+        url = self.api_url + action
+        if params:
+            url += '?' + urlencode(params)
+        return url
+
+    def make_request(self, action, params=None):
+        url = self.make_url(action, params)
+        return requests.get(url, auth=self.auth)
+
+    def translate(self, text, lang_to, lang_from=None, contenttype='text/plain', category='general'):
+        if contenttype not in ('text/plain', 'text/html'):
+            raise ValueError('Invalid contenttype value')
+        params = {
+            'text': text,
+            'to': lang_to,
+            'contentType': contenttype,
+            'category': category,
+        }
+        if lang_from:
+            params['from'] = lang_from
+        return self.make_request('Translate', params).text
+
+    def get_langs(self):
+        resp = self.make_request('GetLanguagesForTranslate')
+        # Sanitize strange zero width no-break space character in response
+        return json.loads(resp.text.replace(u'\ufeff', ''))
