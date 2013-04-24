@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 import requests
 from datetime import datetime, timedelta
+from urllib import urlencode
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 
 class AccessError(Exception):
@@ -23,6 +28,10 @@ class AccessToken(object):
         self.client_id = client_id
         self.client_secret = client_secret
 
+    def __call__(self, r):
+        r.headers['Authorization'] = "Bearer " + self.token
+        return r
+
     def request_token(self):
         data = dict(
             grant_type=self.grant_type,
@@ -30,12 +39,12 @@ class AccessToken(object):
             client_secret=self.client_secret,
             scope=self.scope,
         )
-        req = requests.post(self.access_url, data)
-        resp = req.json()
-        if req.status_code != 200:
-            raise AccessError(resp['error_description'], resp['error'])
-        self._token = resp['access_token']
-        expires_in = int(resp['expires_in'])
+        resp = requests.post(self.access_url, data)
+        d = resp.json()
+        if resp.status_code != 200:
+            raise AccessError(d['error_description'], d['error'])
+        self._token = d['access_token']
+        expires_in = int(d['expires_in'])
         self._expdate = datetime.now() + timedelta(seconds=expires_in)
 
     @property
