@@ -7,3 +7,13 @@ install:
   - pip install nose --use-mirrors
   - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install --use-mirrors unittest2; fi
 script: nosetests
+env:
+  global:
+    - secure: |-
+        ZxRh6CByoRAhE7hiWb+epKKsbPww+Dt0CIQQbEPt/w/n/3qm0Rk9XaqIDBm
+        G\nRhliDKxatvkPtkHP4M1O59pHh9DVNMATUcMlrAgcj6kqghEnxqMxW4rI
+        gbwI\nIOAYgRSOhvosnIwIWbnOWmdw4nRH0SAW/KfCtrBBfkQmFy8C560=
+    - secure: |-
+        Yesun5Q+lQKFrF/dImrQj+Ur0EJx773xCXhU2aWyBNUFbFUDaVwYiwzaIEu
+        y\n2rtCp2VdQUZ723PgYTWAyiSx1XQfTzBRXJZpgYoXHJSViJPfgJdOlSsg
+        Ubl4\nKEWPnPuXx9YtH06aewBkAuSKEOlkfTrDPrFwkiUhjqKfCFdOmug=
