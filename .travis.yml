@@ -9,11 +9,5 @@ install:
 script: nosetests
 env:
   global:
-    - secure: |-
-        ZxRh6CByoRAhE7hiWb+epKKsbPww+Dt0CIQQbEPt/w/n/3qm0Rk9XaqIDBm
-        G\nRhliDKxatvkPtkHP4M1O59pHh9DVNMATUcMlrAgcj6kqghEnxqMxW4rI
-        gbwI\nIOAYgRSOhvosnIwIWbnOWmdw4nRH0SAW/KfCtrBBfkQmFy8C560=
-    - secure: |-
-        Yesun5Q+lQKFrF/dImrQj+Ur0EJx773xCXhU2aWyBNUFbFUDaVwYiwzaIEu
-        y\n2rtCp2VdQUZ723PgYTWAyiSx1XQfTzBRXJZpgYoXHJSViJPfgJdOlSsg
-        Ubl4\nKEWPnPuXx9YtH06aewBkAuSKEOlkfTrDPrFwkiUhjqKfCFdOmug=
+    - secure: "DIyokw0zLmuyJZ+hNkY++pBhPDFknM+DptphzQ0ws78P6YikJrXNJixsCrzX\nJCgvsH9Jl26KZkiRFaM/mva3in2WenTpmMzOcoc2FEbSsv9G7n9I7VCuG7uB\n7QRkZBAk7EG1OA559LCEpj3nDUOnXMX/t3lLOctKFrxBDSJhO+w="
+    - secure: "XaJ5zOE15ehrM8em1LrZoV38UXcgUkjwHT60F/VNEXDdE93PxVfsnscDWcz1\ncIwSQEwev2QyIA2JqJsKLIDWIqE/xUiWRYyg1ziIa/lHBd9l5xGZYp4unq1N\nQ8hclLNGBUXd0GXKWQuM2QjMkiHVNE4OnqX1V0czOA+Qr3QiHqw="
