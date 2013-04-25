@@ -72,7 +72,13 @@ class Translator(object):
 
     def make_request(self, action, params=None):
         url = self.make_url(action, params)
-        return requests.get(url, auth=self.auth)
+        resp = requests.get(url, auth=self.auth)
+        return self.make_response(resp)
+
+    def make_response(self, resp):
+        # Sanitize strange zero width no-break space character in response
+        text = resp.text.replace(u'\ufeff', '')
+        return json.loads(text)
 
     def translate(self, text, lang_to, lang_from=None, contenttype='text/plain', category='general'):
         if contenttype not in ('text/plain', 'text/html'):
@@ -85,9 +91,7 @@ class Translator(object):
         }
         if lang_from:
             params['from'] = lang_from
-        return self.make_request('Translate', params).text
+        return self.make_request('Translate', params)
 
     def get_langs(self):
-        resp = self.make_request('GetLanguagesForTranslate')
-        # Sanitize strange zero width no-break space character in response
-        return json.loads(resp.text.replace(u'\ufeff', ''))
+        return self.make_request('GetLanguagesForTranslate')
