@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
-import unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
+
 from mstranslator import AccessToken, AccessError, Translator
 
 client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']

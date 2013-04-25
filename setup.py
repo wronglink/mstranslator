@@ -13,6 +13,9 @@ setup(
     install_requires=[
         'requests',
     ],
+    tests_require=[
+        'tox'
+    ],
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
