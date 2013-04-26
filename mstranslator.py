@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import requests
 from datetime import datetime, timedelta
-from urllib import urlencode
+try:
+    # Python 3
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 try:
     import simplejson as json
 except ImportError:
@@ -77,7 +82,7 @@ class Translator(object):
 
     def make_response(self, resp):
         # Sanitize strange zero width no-break space character in response
-        text = resp.text.replace(u'\ufeff', '')
+        text = resp.text.replace('\ufeff', '')
         return json.loads(text)
 
     def translate(self, text, lang_to, lang_from=None, contenttype='text/plain', category='general'):
