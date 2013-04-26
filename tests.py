@@ -5,6 +5,11 @@ try:
     import unittest2 as unittest
 except ImportError:
     import unittest
+try:
+    from StringIO import StringIO
+except ImportError:
+    # Python 3
+    from io import BytesIO as StringIO
 
 from mstranslator import AccessToken, AccessError, Translator
 
@@ -37,3 +42,12 @@ class TranslatorTestCase(unittest.TestCase):
 
     def test_detect_lang(self):
         self.assertEqual('en', self.translator.detect_lang('Hello'))
+
+    def test_speak(self):
+        self.assertIsNotNone(self.translator.speak('Hello', 'en'))
+
+    def test_speak_to_file(self):
+        s = StringIO()
+        self.translator.speak_to_file(s, 'Hello', 'en')
+        s.seek(0)
+        self.assertTrue(len(s.read()) > 0)

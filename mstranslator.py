@@ -11,6 +11,10 @@ try:
     import simplejson as json
 except ImportError:
     import json
+try:
+    basestring
+except NameError:
+    basestring = (str, bytes)
 
 
 class AccessError(Exception):
@@ -103,3 +107,24 @@ class Translator(object):
 
     def detect_lang(self, text):
         return self.make_request('Detect', {'text': text})
+
+    def speak(self, text, lang, format='audio/wav', best_quality=False):
+        if format not in ('audio/wav', 'audio/mp3'):
+            raise ValueError('Invalid format value')
+        params = {
+            'text': text,
+            'language': lang,
+            'format': format,
+            'options': 'MaxQuality' if best_quality else 'MinSize',
+        }
+        return self.make_request('Speak', params)
+
+    def speak_to_file(self, file, *args, **kwargs):
+        resp = requests.get(self.speak(*args, **kwargs))
+        if isinstance(file, basestring):
+            with open(file, 'wb'):
+                file.write(resp.content)
+        elif hasattr(file, 'write'):
+            file.write(resp.content)
+        else:
+            raise ValueError('Expected filepath or a file-like object')
