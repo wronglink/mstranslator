@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 import requests
 from datetime import datetime, timedelta
-from urllib import urlencode
+try:
+    # Python 3
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 try:
     import simplejson as json
 except ImportError:
