@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import os
 try:
     import unittest2 as unittest
@@ -27,7 +28,7 @@ class TranslatorTestCase(unittest.TestCase):
 
     def test_translate(self):
         t = self.translator.translate('world', 'ru')
-        self.assertEqual(u'мир', t)
+        self.assertEqual('мир', t)
 
     def test_get_langs(self):
         langs = self.translator.get_langs()
