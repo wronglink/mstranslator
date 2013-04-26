@@ -100,3 +100,6 @@ class Translator(object):
 
     def get_langs(self):
         return self.make_request('GetLanguagesForTranslate')
+
+    def detect_lang(self, text):
+        return self.make_request('Detect', {'text': text})
