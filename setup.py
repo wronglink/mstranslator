@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='mstranslator',
     version='0.2',
-    license='MIT',
+    license='BSD',
     description='Microsoft Translator Api wrapper',
     author='Michael Elovskikh',
     author_email='wronglink@gmail.com',
