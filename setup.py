@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='mstranslator',
     version='0.2',
-    license='BSD',
+    license='MIT',
     url='https://github.com/wronglink/mstranslator',
     description='Microsoft Translator API wrapper',
     long_description=open('README.rst').read(),
@@ -21,7 +21,7 @@ setup(
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
     ),
