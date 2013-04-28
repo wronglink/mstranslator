@@ -7,7 +7,7 @@ setup(
     version='0.2',
     license='BSD',
     url='https://github.com/wronglink/mstranslator',
-    description='Microsoft Translator Api wrapper',
+    description='Microsoft Translator API wrapper',
     author='Michael Elovskikh',
     author_email='wronglink@gmail.com',
     py_modules=['mstranslator'],
