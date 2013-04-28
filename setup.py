@@ -8,6 +8,7 @@ setup(
     license='BSD',
     url='https://github.com/wronglink/mstranslator',
     description='Microsoft Translator API wrapper',
+    long_description=open('README.rst').read(),
     author='Michael Elovskikh',
     author_email='wronglink@gmail.com',
     py_modules=['mstranslator'],
