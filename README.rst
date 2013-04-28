@@ -12,7 +12,7 @@ Installation
 
 Install with pip:
 
-.. code-block:: shell
+.. code-block:: console
 
     $ pip install mstranslator
 
@@ -31,7 +31,7 @@ That's all. Now you have a Client ID and Client secret.
 
 Example Usage:
 
-.. code-block:: python
+.. code-block:: pycon
 
     >>> from mstranslator import Translator
     >>> translator = Translator('<Client ID>', '<Client secret>')
@@ -43,7 +43,7 @@ Testing
 To run tests you need to set ``TEST_MSTRANSLATOR_CLIENT_ID`` and ``TEST_MSTRANSLATOR_CLIENT_SECRET`` environment variables
 and install `tox`_ package. After that run shell command:
 
-.. code-block:: shell
+.. code-block:: console
 
     $ tox
 
