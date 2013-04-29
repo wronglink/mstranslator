@@ -102,8 +102,9 @@ class Translator(object):
             params['from'] = lang_from
         return self.make_request('Translate', params)
 
-    def get_langs(self):
-        return self.make_request('GetLanguagesForTranslate')
+    def get_langs(self, speakable=False):
+        action = 'GetLanguagesForSpeak' if speakable else 'GetLanguagesForTranslate'
+        return self.make_request(action)
 
     def detect_lang(self, text):
         return self.make_request('Detect', {'text': text})
