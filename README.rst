@@ -6,6 +6,9 @@ mstranslator: Microsoft Translator API wrapper
    :target: https://travis-ci.org/wronglink/mstranslator
    :alt: Travis-ci: continuous integration status.
 
+.. image:: https://badge.fury.io/py/mstranslator.png
+   :target: http://badge.fury.io/py/mstranslator
+   :alt: PyPI version
 
 Installation
 ============
