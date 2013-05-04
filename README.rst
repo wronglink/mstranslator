@@ -26,6 +26,7 @@ Usage
 Subscribe to the `Microsoft Translator dataset`_ on Azure Marketplace. Note that subscriptions,
 up to 2 million characters a month, are free. Translating more than 2 million characters per
 month requires a payment.
+
 2. Register an application
 Register an application `here`__. As the redirect field is not used but it's marked as required
 you may enter any URI to pass validation.
