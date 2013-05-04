@@ -106,6 +106,13 @@ class Translator(object):
         action = 'GetLanguagesForSpeak' if speakable else 'GetLanguagesForTranslate'
         return self.make_request(action)
 
+    def get_lang_names(self, langs, lang_to):
+        params = {
+            'locale': lang_to,
+            'languageCodes': json.dumps(langs),
+        }
+        return self.make_request('GetLanguageNames', params)
+
     def detect_lang(self, text):
         return self.make_request('Detect', {'text': text})
 

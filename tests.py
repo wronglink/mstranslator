@@ -40,6 +40,10 @@ class TranslatorTestCase(unittest.TestCase):
         self.assertIsInstance(langs, list)
         self.assertIn('en', langs)
 
+    def test_get_lang_names(self):
+        lang_names = self.translator.get_lang_names(['ru', 'en'], 'en')
+        self.assertEqual(['Russian', 'English'], lang_names)
+
     def test_get_speackable_langs(self):
         langs = self.translator.get_langs(speakable=True)
         self.assertIsInstance(langs, list)
