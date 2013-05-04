@@ -7,6 +7,7 @@ setup(
     version='0.2.1',
     license='MIT',
     url='https://github.com/wronglink/mstranslator',
+    bugtrack_url='https://github.com/wronglink/mstranslator/issues',
     description='Microsoft Translator API wrapper',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
