@@ -17,6 +17,15 @@ client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']
 client_secret = os.environ['TEST_MSTRANSLATOR_CLIENT_SECRET']
 
 
+class TranslatorMock(Translator):
+    """
+    A Translator mock that returns url on `.make_request()` method call without
+    making a real HTTP request.
+    """
+    def make_request(self, action, params=None):
+        return self.make_url(action, params)
+
+
 class AccessTokenTestCase(unittest.TestCase):
     def test_access(self):
         at = AccessToken(client_id, client_secret)
@@ -30,10 +39,16 @@ class AccessTokenTestCase(unittest.TestCase):
 class TranslatorTestCase(unittest.TestCase):
     def setUp(self):
         self.translator = Translator(client_id, client_secret)
+        self.translator_mock = TranslatorMock(client_id, client_secret)
 
     def test_translate(self):
         t = self.translator.translate('world', 'ru')
         self.assertEqual('мир', t)
+
+    def test_add_translation(self):
+        url = self.translator_mock.add_translation('orig', 'trans', 'en', 'ru', user='test')
+        self.assertIn('originalText=orig', url)
+        self.assertIn('translatedText=trans', url)
 
     def test_get_langs(self):
         langs = self.translator.get_langs()

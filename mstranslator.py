@@ -87,7 +87,7 @@ class Translator(object):
     def make_response(self, resp):
         # Sanitize strange zero width no-break space character in response
         text = resp.text.replace('\ufeff', '')
-        return json.loads(text)
+        return json.loads(text) if text else None
 
     def translate(self, text, lang_to, lang_from=None, contenttype='text/plain', category='general'):
         if contenttype not in ('text/plain', 'text/html'):
@@ -101,6 +101,30 @@ class Translator(object):
         if lang_from:
             params['from'] = lang_from
         return self.make_request('Translate', params)
+
+    def add_translation(self, text_orig, text_trans, lang_from, lang_to, user, rating=1,
+                        contenttype='text/plain', category='general', uri=None):
+        if len(text_orig) > 1000:
+            raise ValueError('The original text maximum length is 1000 characters')
+        if len(text_trans) > 2000:
+            raise ValueError('The translated text maximum length is 1000 characters')
+        if contenttype not in ('text/plain', 'text/html'):
+            raise ValueError('Invalid contenttype value')
+        if not -10 < rating < 10 or not isinstance(rating, int):
+            raise ValueError('Raiting must be an integer value between -10 and 10')
+        params = {
+            'originalText': text_orig,
+            'translatedText': text_trans,
+            'from': lang_from,
+            'to': lang_to,
+            'user': user,
+            'contentType': contenttype,
+            'rating': rating,
+            'category': category,
+        }
+        if uri:
+            params['uri'] = uri
+        return self.make_request('AddTranslation', params)
 
     def get_langs(self, speakable=False):
         action = 'GetLanguagesForSpeak' if speakable else 'GetLanguagesForTranslate'
