@@ -102,6 +102,24 @@ class Translator(object):
             params['from'] = lang_from
         return self.make_request('Translate', params)
 
+    def break_sentences(self, text, lang):
+        if len(text) > 10000:
+            raise ValueError('The text maximum length is 10000 characters')
+        params = {
+            'text': text,
+            'language': lang,
+        }
+        lengths = self.make_request('BreakSentences', params)
+        print lengths
+        if isinstance(text, bytes):
+            text = text.decode('utf-8')
+        c = 0
+        result = []
+        for i in lengths:
+            result.append(text[c:c+i])
+            c += i
+        return result
+
     def add_translation(self, text_orig, text_trans, lang_from, lang_to, user, rating=1,
                         contenttype='text/plain', category='general', uri=None):
         if len(text_orig) > 1000:
