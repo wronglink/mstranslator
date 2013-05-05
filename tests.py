@@ -45,6 +45,10 @@ class TranslatorTestCase(unittest.TestCase):
         t = self.translator.translate('world', 'ru')
         self.assertEqual('мир', t)
 
+    def test_break_sentences(self):
+        t = self.translator.break_sentences('Hello. How are you?', 'en')
+        self.assertEqual(['Hello. ', 'How are you?'], t)
+
     def test_add_translation(self):
         url = self.translator_mock.add_translation('orig', 'trans', 'en', 'ru', user='test')
         self.assertIn('originalText=orig', url)
