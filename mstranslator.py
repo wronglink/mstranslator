@@ -110,7 +110,6 @@ class Translator(object):
             'language': lang,
         }
         lengths = self.make_request('BreakSentences', params)
-        print lengths
         if isinstance(text, bytes):
             text = text.decode('utf-8')
         c = 0
