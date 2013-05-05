@@ -1,6 +1,12 @@
 History
 -------
 
+0.2.2 (2013-05-05)
+++++++++++++++++++
+
+- Added break_sentences method
+- Added add_translation method
+
 0.2.1 (2013-05-04)
 ++++++++++++++++++
 
