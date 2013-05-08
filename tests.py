@@ -45,6 +45,11 @@ class TranslatorTestCase(unittest.TestCase):
         t = self.translator.translate('world', 'ru')
         self.assertEqual('мир', t)
 
+    def test_get_translations(self):
+        t = self.translator.get_translations('world', 'en', 'ru')
+        self.assertIsInstance(t, dict)
+        self.assertIn('Translations', t)
+
     def test_break_sentences(self):
         t = self.translator.break_sentences('Hello. How are you?', 'en')
         self.assertEqual(['Hello. ', 'How are you?'], t)

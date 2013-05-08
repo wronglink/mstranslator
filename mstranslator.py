@@ -102,6 +102,27 @@ class Translator(object):
             params['from'] = lang_from
         return self.make_request('Translate', params)
 
+    def get_translations(self, text, lang_from, lang_to, max_n=10, contenttype='text/plain', category='general',
+                         url=None, user=None, state=None):
+        options = {
+            'Category': category,
+            'ContentType': contenttype,
+        }
+        if url:
+            options['Uri'] = url
+        if user:
+            options['User'] = user
+        if state:
+            options['State'] = state
+        params = {
+            'text': text,
+            'to': lang_to,
+            'from': lang_from,
+            'maxTranslations': max_n,
+            'options': json.dumps(options)
+        }
+        return self.make_request('GetTranslations', params)
+
     def break_sentences(self, text, lang):
         if len(text) > 10000:
             raise ValueError('The text maximum length is 10000 characters')
