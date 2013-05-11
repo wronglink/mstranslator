@@ -89,7 +89,9 @@ class Translator(object):
         text = resp.text.replace('\ufeff', '')
         return json.loads(text) if text else None
 
-    def translate(self, text, lang_to, lang_from=None, contenttype='text/plain', category='general'):
+    def translate(self, text, lang_from=None, lang_to=None, contenttype='text/plain', category='general'):
+        if not lang_to:
+            raise ValueError('lang_to parameter is required')
         if contenttype not in ('text/plain', 'text/html'):
             raise ValueError('Invalid contenttype value')
         params = {

@@ -42,7 +42,7 @@ class TranslatorTestCase(unittest.TestCase):
         self.translator_mock = TranslatorMock(client_id, client_secret)
 
     def test_translate(self):
-        t = self.translator.translate('world', 'ru')
+        t = self.translator.translate('world', 'en', 'ru')
         self.assertEqual('мир', t)
 
     def test_get_translations(self):
