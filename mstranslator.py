@@ -89,37 +89,38 @@ class Translator(object):
         text = resp.text.replace('\ufeff', '')
         return json.loads(text) if text else None
 
-    def translate(self, text, lang_from=None, lang_to=None, contenttype='text/plain', category='general'):
+    def _translate(self, action, text_params, lang_from, lang_to, contenttype, category):
         if not lang_to:
             raise ValueError('lang_to parameter is required')
         if contenttype not in ('text/plain', 'text/html'):
             raise ValueError('Invalid contenttype value')
+
         params = {
-            'text': text,
             'to': lang_to,
             'contentType': contenttype,
             'category': category,
         }
         if lang_from:
             params['from'] = lang_from
-        return self.make_request('Translate', params)
+        params.update(text_params)
+
+        return self.make_request(action, params)
+
+    def translate(self, text, lang_from=None, lang_to=None,
+                  contenttype='text/plain', category='general'):
+        params = {
+            'text': text,
+        }
+        return self._translate('Translate', params, lang_from, lang_to,
+                               contenttype, category)
 
     def translate_array(self, texts=[], lang_from=None, lang_to=None,
                         contenttype='text/plain', category='general'):
-        if not lang_to:
-            raise ValueError('lang_to parameter is required')
-        if contenttype not in ('text/plain', 'text/html'):
-            raise ValueError('Invalid contenttype value')
         params = {
             'texts': json.dumps(texts),
-            'to': lang_to,
-            'contentType': contenttype,
-            'category': category,
         }
-        if lang_from:
-            params['from'] = lang_from
-
-        return self.make_request('TranslateArray', params)
+        return self._translate('TranslateArray', params, lang_from, lang_to,
+                               contenttype, category)
 
     def get_translations(self, text, lang_from, lang_to, max_n=10, contenttype='text/plain', category='general',
                          url=None, user=None, state=None):
