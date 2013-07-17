@@ -190,6 +190,9 @@ class Translator(object):
     def detect_lang(self, text):
         return self.make_request('Detect', {'text': text})
 
+    def detect_langs(self, texts=[]):
+        return self.make_request('DetectArray', {'texts': json.dumps(texts)})
+
     def speak(self, text, lang, format='audio/wav', best_quality=False):
         if format not in ('audio/wav', 'audio/mp3'):
             raise ValueError('Invalid format value')

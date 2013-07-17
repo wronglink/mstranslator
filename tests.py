@@ -84,6 +84,9 @@ class TranslatorTestCase(unittest.TestCase):
     def test_detect_lang(self):
         self.assertEqual('en', self.translator.detect_lang('Hello'))
 
+    def test_detect_langs(self):
+        self.assertEqual(['en', 'ru'], self.translator.detect_langs(['Hello', 'Привет']))
+
     def test_speak(self):
         self.assertIsNotNone(self.translator.speak('Hello', 'en'))
 
