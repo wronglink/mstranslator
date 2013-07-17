@@ -12,6 +12,7 @@ except ImportError:
     from io import BytesIO as StringIO
 
 from mstranslator import AccessToken, AccessError, Translator
+import requests
 
 client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']
 client_secret = os.environ['TEST_MSTRANSLATOR_CLIENT_SECRET']
@@ -23,8 +24,10 @@ class TranslatorMock(Translator):
     making a real HTTP request.
     """
     def make_request(self, action, params=None):
-        return self.make_url(action, params)
-
+        prepped = requests.Request('GET',
+                                   url=self.make_url(action),
+                                   params=params).prepare()
+        return prepped.url
 
 class AccessTokenTestCase(unittest.TestCase):
     def test_access(self):
@@ -44,6 +47,11 @@ class TranslatorTestCase(unittest.TestCase):
     def test_translate(self):
         t = self.translator.translate('world', 'en', 'ru')
         self.assertEqual('мир', t)
+
+    def test_translate_array(self):
+        ts = self.translator.translate_array(['hello', 'world'], 'en', 'ru')
+        translations = [t['TranslatedText'] for t in ts]
+        self.assertEqual(['Привет', 'мир'], translations)
 
     def test_get_translations(self):
         t = self.translator.get_translations('world', 'en', 'ru')
@@ -75,6 +83,9 @@ class TranslatorTestCase(unittest.TestCase):
 
     def test_detect_lang(self):
         self.assertEqual('en', self.translator.detect_lang('Hello'))
+
+    def test_detect_langs(self):
+        self.assertEqual(['en', 'ru'], self.translator.detect_langs(['Hello', 'Привет']))
 
     def test_speak(self):
         self.assertIsNotNone(self.translator.speak('Hello', 'en'))

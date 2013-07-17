@@ -3,11 +3,6 @@ from __future__ import unicode_literals
 import requests
 from datetime import datetime, timedelta
 try:
-    # Python 3
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
-try:
     import simplejson as json
 except ImportError:
     import json
@@ -73,15 +68,12 @@ class Translator(object):
     def __init__(self, client_id, client_secret):
         self.auth = AccessToken(client_id, client_secret)
 
-    def make_url(self, action, params=None, ):
-        url = self.api_url + action
-        if params:
-            url += '?' + urlencode(params)
-        return url
+    def make_url(self, action):
+        return self.api_url + action
 
     def make_request(self, action, params=None):
-        url = self.make_url(action, params)
-        resp = requests.get(url, auth=self.auth)
+        url = self.make_url(action)
+        resp = requests.get(url, auth=self.auth, params=params)
         return self.make_response(resp)
 
     def make_response(self, resp):
@@ -89,20 +81,38 @@ class Translator(object):
         text = resp.text.replace('\ufeff', '')
         return json.loads(text) if text else None
 
-    def translate(self, text, lang_from=None, lang_to=None, contenttype='text/plain', category='general'):
+    def _translate(self, action, text_params, lang_from, lang_to, contenttype, category):
         if not lang_to:
             raise ValueError('lang_to parameter is required')
         if contenttype not in ('text/plain', 'text/html'):
             raise ValueError('Invalid contenttype value')
+
         params = {
-            'text': text,
             'to': lang_to,
             'contentType': contenttype,
             'category': category,
         }
         if lang_from:
             params['from'] = lang_from
-        return self.make_request('Translate', params)
+        params.update(text_params)
+
+        return self.make_request(action, params)
+
+    def translate(self, text, lang_from=None, lang_to=None,
+                  contenttype='text/plain', category='general'):
+        params = {
+            'text': text,
+        }
+        return self._translate('Translate', params, lang_from, lang_to,
+                               contenttype, category)
+
+    def translate_array(self, texts=[], lang_from=None, lang_to=None,
+                        contenttype='text/plain', category='general'):
+        params = {
+            'texts': json.dumps(texts),
+        }
+        return self._translate('TranslateArray', params, lang_from, lang_to,
+                               contenttype, category)
 
     def get_translations(self, text, lang_from, lang_to, max_n=10, contenttype='text/plain', category='general',
                          url=None, user=None, state=None):
@@ -179,6 +189,9 @@ class Translator(object):
 
     def detect_lang(self, text):
         return self.make_request('Detect', {'text': text})
+
+    def detect_langs(self, texts=[]):
+        return self.make_request('DetectArray', {'texts': json.dumps(texts)})
 
     def speak(self, text, lang, format='audio/wav', best_quality=False):
         if format not in ('audio/wav', 'audio/mp3'):
