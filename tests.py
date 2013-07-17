@@ -45,6 +45,11 @@ class TranslatorTestCase(unittest.TestCase):
         t = self.translator.translate('world', 'en', 'ru')
         self.assertEqual('мир', t)
 
+    def test_translate_array(self):
+        ts = self.translator.translate_array(['hello', 'world'], 'en', 'ru')
+        translations = [t['TranslatedText'] for t in ts]
+        self.assertEqual(['Привет', 'мир'], translations)
+
     def test_get_translations(self):
         t = self.translator.get_translations('world', 'en', 'ru')
         self.assertIsInstance(t, dict)
