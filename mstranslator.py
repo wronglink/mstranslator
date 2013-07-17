@@ -3,11 +3,6 @@ from __future__ import unicode_literals
 import requests
 from datetime import datetime, timedelta
 try:
-    # Python 3
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
-try:
     import simplejson as json
 except ImportError:
     import json
@@ -73,15 +68,12 @@ class Translator(object):
     def __init__(self, client_id, client_secret):
         self.auth = AccessToken(client_id, client_secret)
 
-    def make_url(self, action, params=None, ):
-        url = self.api_url + action
-        if params:
-            url += '?' + urlencode(params)
-        return url
+    def make_url(self, action):
+        return self.api_url + action
 
     def make_request(self, action, params=None):
-        url = self.make_url(action, params)
-        resp = requests.get(url, auth=self.auth)
+        url = self.make_url(action)
+        resp = requests.get(url, auth=self.auth, params=params)
         return self.make_response(resp)
 
     def make_response(self, resp):

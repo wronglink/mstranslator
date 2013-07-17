@@ -12,6 +12,7 @@ except ImportError:
     from io import BytesIO as StringIO
 
 from mstranslator import AccessToken, AccessError, Translator
+import requests
 
 client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']
 client_secret = os.environ['TEST_MSTRANSLATOR_CLIENT_SECRET']
@@ -23,8 +24,10 @@ class TranslatorMock(Translator):
     making a real HTTP request.
     """
     def make_request(self, action, params=None):
-        return self.make_url(action, params)
-
+        prepped = requests.Request('GET',
+                                   url=self.make_url(action),
+                                   params=params).prepare()
+        return prepped.url
 
 class AccessTokenTestCase(unittest.TestCase):
     def test_access(self):
