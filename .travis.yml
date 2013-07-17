@@ -11,5 +11,5 @@ install:
 script: nosetests
 env:
   global:
-    - secure: "DIyokw0zLmuyJZ+hNkY++pBhPDFknM+DptphzQ0ws78P6YikJrXNJixsCrzX\nJCgvsH9Jl26KZkiRFaM/mva3in2WenTpmMzOcoc2FEbSsv9G7n9I7VCuG7uB\n7QRkZBAk7EG1OA559LCEpj3nDUOnXMX/t3lLOctKFrxBDSJhO+w="
-    - secure: "XaJ5zOE15ehrM8em1LrZoV38UXcgUkjwHT60F/VNEXDdE93PxVfsnscDWcz1\ncIwSQEwev2QyIA2JqJsKLIDWIqE/xUiWRYyg1ziIa/lHBd9l5xGZYp4unq1N\nQ8hclLNGBUXd0GXKWQuM2QjMkiHVNE4OnqX1V0czOA+Qr3QiHqw="
+    - TEST_MSTRANSLATOR_CLIENT_ID=python-mstranslator
+    - TEST_MSTRANSLATOR_CLIENT_SECRET=FkVf1TWUiEpT6FXGgEkFhzGmDzye6xJ6E0WXpvE64HA=
