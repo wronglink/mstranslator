@@ -1,5 +1,9 @@
 History
 -------
+0.2.4 (2013-07-18)
+++++++++++++++++++
+
+- Added translate_array and detect_langs methods (by @wjt)
 
 0.2.3 (2013-05-08)
 ++++++++++++++++++

@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='mstranslator',
-    version='0.2.3',
+    version='0.2.4',
     license='MIT',
     url='https://github.com/wronglink/mstranslator',
     bugtrack_url='https://github.com/wronglink/mstranslator/issues',
