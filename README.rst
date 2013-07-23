@@ -1,6 +1,6 @@
-================================================
+==============================================
 mstranslator: Microsoft Translator API wrapper
-================================================
+==============================================
 
 .. image:: https://travis-ci.org/wronglink/mstranslator.png?branch=master
    :target: https://travis-ci.org/wronglink/mstranslator
