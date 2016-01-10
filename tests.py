@@ -53,6 +53,13 @@ class TranslatorTestCase(unittest.TestCase):
         translations = [t['TranslatedText'] for t in ts]
         self.assertEqual(['Привет', 'мир'], translations)
 
+    def test_translate_array2(self):
+        ts = self.translator.translate_array2(['hello', 'world', 'Hello. How are you?'], 'en', 'ru')
+        translations = [t['TranslatedText'] for t in ts]
+        self.assertEqual(['Привет', 'мир', 'Привет. Как ваши дела?'], translations)
+        alignments = [t['Alignment'] for t in ts]
+        self.assertEqual(['0:4-0:5', '0:4-0:2', '0:5-0:6 7:18-8:21'], alignments)
+
     def test_get_translations(self):
         t = self.translator.get_translations('world', 'en', 'ru')
         self.assertIsInstance(t, dict)
