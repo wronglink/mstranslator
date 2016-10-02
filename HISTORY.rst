@@ -1,5 +1,11 @@
 History
 -------
+0.2.6 (2016-10-02)
+++++++++++++++++++
+
+- Translator API errors are now wrapped with python exceptions
+- Add translate_array2 method (by `@kanghj <https://github.com/kanghj>`_)
+
 0.2.5 (2013-07-23)
 ++++++++++++++++++
 
@@ -8,7 +14,7 @@ History
 0.2.4 (2013-07-18)
 ++++++++++++++++++
 
-- Added translate_array and detect_langs methods (by @wjt)
+- Added translate_array and detect_langs methods (by `@wjt <https://github.com/wjt>`_)
 
 0.2.3 (2013-05-08)
 ++++++++++++++++++
