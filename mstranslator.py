@@ -15,6 +15,18 @@ class AccessError(Exception):
         super(AccessError, self).__init__(message)
 
 
+class ArgumentOutOfRangeException(Exception):
+    def __init__(self, message):
+        self.message = message.replace('ArgumentOutOfRangeException: ', '')
+        super(ArgumentOutOfRangeException, self).__init__(self.message)
+
+
+class TranslateApiException(Exception):
+    def __init__(self, message, *args):
+        self.message = message.replace('TranslateApiException: ', '')
+        super(TranslateApiException, self).__init__(self.message, *args)
+
+
 class AccessToken(object):
     client_id = ""
     client_secret = ""
@@ -74,9 +86,16 @@ class Translator(object):
         return self.make_response(resp)
 
     def make_response(self, resp):
-        # Sanitize strange zero width no-break space character in response
-        text = resp.text.replace('\ufeff', '')
-        return json.loads(text) if text else None
+        resp.encoding = 'UTF-8-sig'
+        data = resp.json()
+
+        if isinstance(data, basestring) and data.startswith("ArgumentOutOfRangeException"):
+            raise ArgumentOutOfRangeException(data)
+
+        if isinstance(data, basestring) and data.startswith("TranslateApiException"):
+            raise TranslateApiException(data)
+
+        return data
 
     def _translate(self, action, text_params, lang_from, lang_to, contenttype, category):
         if not lang_to:
