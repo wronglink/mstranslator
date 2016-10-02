@@ -114,6 +114,14 @@ class Translator(object):
         return self._translate('TranslateArray', params, lang_from, lang_to,
                                contenttype, category)
 
+    def translate_array2(self, texts=[], lang_from=None, lang_to=None,
+                        contenttype='text/plain', category='general'):
+        params = {
+            'texts': json.dumps(texts),
+        }
+        return self._translate('TranslateArray2', params, lang_from, lang_to,
+                               contenttype, category)
+
     def get_translations(self, text, lang_from, lang_to, max_n=10, contenttype='text/plain', category='general',
                          url=None, user=None, state=None):
         options = {
