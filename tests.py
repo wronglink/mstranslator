@@ -11,7 +11,7 @@ except ImportError:
     # Python 3
     from io import BytesIO as StringIO
 
-from mstranslator import AccessToken, AccessError, Translator
+from mstranslator import AccessToken, AccessError, Translator, ArgumentOutOfRangeException
 import requests
 
 client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']
@@ -47,6 +47,9 @@ class TranslatorTestCase(unittest.TestCase):
     def test_translate(self):
         t = self.translator.translate('world', 'en', 'ru')
         self.assertEqual('мир', t)
+
+    def test_translate_exception(self):
+        self.assertRaises(ArgumentOutOfRangeException, self.translator.translate, 'world', 'en', 'asdf')
 
     def test_translate_array(self):
         ts = self.translator.translate_array(['hello', 'world'], 'en', 'ru')
