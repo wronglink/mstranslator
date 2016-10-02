@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import requests
-from datetime import datetime, timedelta
-try:
-    import simplejson as json
-except ImportError:
-    import json
+import datetime
+import json
 try:
     basestring
 except NameError:
@@ -44,16 +41,16 @@ class AccessToken(object):
             scope=self.scope,
         )
         resp = requests.post(self.access_url, data)
-        d = resp.json()
+        data = resp.json()
         if resp.status_code != 200:
-            raise AccessError(d['error_description'], d['error'])
-        self._token = d['access_token']
-        expires_in = int(d['expires_in'])
-        self._expdate = datetime.now() + timedelta(seconds=expires_in)
+            raise AccessError(data['error_description'], data['error'])
+        self._token = data['access_token']
+        delta = datetime.timedelta(seconds=int(data['expires_in']))
+        self._expdate = datetime.datetime.now() + delta
 
     @property
     def expired(self):
-        return datetime.now() > self._expdate
+        return datetime.datetime.now() > self._expdate
 
     @property
     def token(self):
