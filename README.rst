@@ -22,31 +22,34 @@ Install with pip:
 Usage
 =====
 
-1. Subscribe to the Microsoft Translator API
---------------------------------------------
-Subscribe to the `Microsoft Translator dataset`_ on Azure Marketplace. Note that subscriptions,
+1. Subscribe to the Translator API
+----------------------------------
+To access Translator API you need a `Microsoft Azure`_ account. Note that subscriptions,
 up to 2 million characters a month, are free. Translating more than 2 million characters per
 month requires a payment.
 
-2. Register an application
---------------------------
-Register an application `here`__. As the redirect field is not used but it's marked as required
-you may enter any URI to pass validation.
+2. Add Translator subscription to your Azure account
+----------------------------------------------------
+1. Select the **+ New** -> **Intelligence + analytics** -> **Cognitive Services APIs**.
+2. Select the **API Type** option.
+3. Select either **Text Translation** or **Speech Translation**.﻿Select the pricing tier that fits your needs.
+4. Fill out the rest of the form, and press the **Create** button. You are now subscribed to Microsoft Translator.
+5. Now retrieve your subscription key for authentication. You can find it in **All Resources** -> **Keys** option.
 
-That's all. Now you have a Client ID and Client secret.
+That's all. Now you have a Subscription Key and can use Microsoft Translator API.
 
 Example Usage:
 
 .. code-block:: pycon
 
     >>> from mstranslator import Translator
-    >>> translator = Translator('<Client ID>', '<Client secret>')
+    >>> translator = Translator('<Subscription Key>')
     >>> print(translator.translate('Привет, мир!', lang_from='ru', lang_to='en'))
     Hello World!
 
 Testing
 =======
-To run tests you need to set ``TEST_MSTRANSLATOR_CLIENT_ID`` and ``TEST_MSTRANSLATOR_CLIENT_SECRET`` environment variables
+To run tests you need to set ``TEST_MSTRANSLATOR_SUBSCRIPTION_KEY`` environment variable
 and install `tox`_ package. After that run shell command:
 
 .. code-block:: console
@@ -54,5 +57,5 @@ and install `tox`_ package. After that run shell command:
     $ tox
 
 .. __: https://datamarket.azure.com/developer/applications/
-.. _Microsoft Translator dataset: https://datamarket.azure.com/dataset/bing/microsofttranslator
+.. _Microsoft Azure: http://azure.com
 .. _tox: http://tox.readthedocs.org/en/latest/
