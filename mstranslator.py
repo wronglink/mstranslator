@@ -64,10 +64,10 @@ class AccessToken(object):
 
 
 class Translator(object):
-    api_url = "http://api.microsofttranslator.com/V2/Ajax.svc/"
+    api_url = "https://api.microsofttranslator.com/v2/ajax.svc/"
 
-    def __init__(self, client_id, client_secret):
-        self.auth = AccessToken(client_id, client_secret)
+    def __init__(self, subscription_key):
+        self.auth = AccessToken(subscription_key)
 
     def make_url(self, action):
         return self.api_url + action
