@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='mstranslator',
-    version='0.3.0',
+    version='0.3.2',
     license='MIT',
     url='https://github.com/wronglink/mstranslator',
     bugtrack_url='https://github.com/wronglink/mstranslator/issues',
@@ -20,9 +20,7 @@ setup(
     tests_require=[
         'tox'
     ],
-    classifiers=(
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+    classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
@@ -32,5 +30,5 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-    ),
+    ],
 )

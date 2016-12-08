@@ -56,6 +56,5 @@ and install `tox`_ package. After that run shell command:
 
     $ tox
 
-.. __: https://datamarket.azure.com/developer/applications/
 .. _Microsoft Azure: http://azure.com
 .. _tox: http://tox.readthedocs.org/en/latest/
