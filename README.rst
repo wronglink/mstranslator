@@ -30,9 +30,9 @@ month requires a payment.
 
 2. Add Translator subscription to your Azure account
 ----------------------------------------------------
-1. Select the **+ New** -> **Intelligence + analytics** -> **Cognitive Services** APIs.
+1. Select the **+ New** -> **Intelligence + analytics** -> **Cognitive Services APIs**.
 2. Select the **API Type** option.
-3. Select either **Text Translation**﻿or **Speech Translation**.﻿Select the pricing tier that fits your needs.
+3. Select either **Text Translation** or **Speech Translation**.﻿Select the pricing tier that fits your needs.
 4. Fill out the rest of the form, and press the **Create** button. You are now subscribed to Microsoft Translator.
 5. Now retrieve your subscription key for authentication. You can find it in **All Resources** -> **Keys** option.
 
