@@ -1,5 +1,10 @@
 History
 -------
+development
++++++++++++
+
+- Supported moving Translator APIs to the Azure portal. See https://github.com/wronglink/mstranslator/issues/20
+
 0.2.6 (2016-10-02)
 ++++++++++++++++++
 
