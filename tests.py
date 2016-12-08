@@ -14,8 +14,7 @@ except ImportError:
 from mstranslator import AccessToken, AccessError, Translator, ArgumentOutOfRangeException
 import requests
 
-client_id = os.environ['TEST_MSTRANSLATOR_CLIENT_ID']
-client_secret = os.environ['TEST_MSTRANSLATOR_CLIENT_SECRET']
+SUBSCRIPTION_KEY = os.environ['TEST_MSTRANSLATOR_SUBSCRIPTION_KEY']
 
 
 class TranslatorMock(Translator):
@@ -31,18 +30,18 @@ class TranslatorMock(Translator):
 
 class AccessTokenTestCase(unittest.TestCase):
     def test_access(self):
-        at = AccessToken(client_id, client_secret)
+        at = AccessToken(SUBSCRIPTION_KEY)
         assert at.token
 
     def test_access_denied(self):
-        at = AccessToken(client_id, "AN_INVALID_SECRET")
+        at = AccessToken("AN_INVALID_SUBSCRIPTION_KEY")
         self.assertRaises(AccessError, at.request_token)
 
 
 class TranslatorTestCase(unittest.TestCase):
     def setUp(self):
-        self.translator = Translator(client_id, client_secret)
-        self.translator_mock = TranslatorMock(client_id, client_secret)
+        self.translator = Translator(SUBSCRIPTION_KEY)
+        self.translator_mock = TranslatorMock(SUBSCRIPTION_KEY)
 
     def test_translate(self):
         t = self.translator.translate('world', 'en', 'ru')
