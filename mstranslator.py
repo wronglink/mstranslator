@@ -10,9 +10,10 @@ except NameError:
 
 
 class AccessError(Exception):
-    def __init__(self, message, error):
-        self.error = error
-        super(AccessError, self).__init__(message)
+    def __init__(self, response):
+        self.status_code = response.status_code
+        data = response.json()
+        super(AccessError, self).__init__(data["message"])
 
 
 class ArgumentOutOfRangeException(Exception):
@@ -28,37 +29,28 @@ class TranslateApiException(Exception):
 
 
 class AccessToken(object):
-    client_id = ""
-    client_secret = ""
-    access_url = "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13"
-    scope = "http://api.microsofttranslator.com"
-    grant_type = "client_credentials"
+    access_url = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken"
+    expire_delta = datetime.timedelta(minutes=9)  # Translator API valid for 10 minutes, actually
 
-    _token = None
-    _expdate = None
-
-    def __init__(self, client_id, client_secret):
-        self.client_id = client_id
-        self.client_secret = client_secret
+    def __init__(self, subscription_key):
+        self.subscription_key = subscription_key
+        self._token = None
+        self._expdate = None
 
     def __call__(self, r):
         r.headers['Authorization'] = "Bearer " + self.token
         return r
 
     def request_token(self):
-        data = dict(
-            grant_type=self.grant_type,
-            client_id=self.client_id,
-            client_secret=self.client_secret,
-            scope=self.scope,
-        )
-        resp = requests.post(self.access_url, data)
-        data = resp.json()
-        if resp.status_code != 200:
-            raise AccessError(data['error_description'], data['error'])
-        self._token = data['access_token']
-        delta = datetime.timedelta(seconds=int(data['expires_in']))
-        self._expdate = datetime.datetime.now() + delta
+        headers = {
+            'Ocp-Apim-Subscription-Key': self.subscription_key
+        }
+        resp = requests.post(self.access_url, headers=headers)
+        if resp.status_code == 200:
+            self._token = resp.text
+            self._expdate = datetime.datetime.now() + self.expire_delta
+        else:
+            raise AccessError(resp)
 
     @property
     def expired(self):
