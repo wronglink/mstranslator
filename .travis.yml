@@ -12,5 +12,4 @@ install:
 script: nosetests
 env:
   global:
-    - TEST_MSTRANSLATOR_CLIENT_ID=python-mstranslator
-    - TEST_MSTRANSLATOR_CLIENT_SECRET=FkVf1TWUiEpT6FXGgEkFhzGmDzye6xJ6E0WXpvE64HA=
+    - TEST_MSTRANSLATOR_SUBSCRIPTION_KEY=2defb6d59d0e4f7a807712ba24d5d5d6
